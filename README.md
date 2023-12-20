@@ -1,4 +1,5 @@
 ![WrapperMeister](https://github.com/Moreault/WrapperMeister/blob/master/wrappermeister.png)
+
 Base wrapper class and interface to seamlessly wrap any .NET type.
 
 # What is it?
