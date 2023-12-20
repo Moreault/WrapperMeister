@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>ToolBX.$(AssemblyName)</RootNamespace>
+		<PackageId>ToolBX.$(AssemblyName)</PackageId>
+		<Authors>Mathieu Moreault</Authors>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<RepositoryUrl>https://github.com/Moreault/NetAbstractions</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/Moreault/NetAbstractions</PackageProjectUrl>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Description>Base wrapper class and interface to seamlessly wrap any .NET type.</Description>
+		<Version>2.2.0-beta1</Version>
+		<Product>ToolBX.$(AssemblyName)</Product>
+		<PackageIcon>wrappermeister.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\wrappermeister.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
