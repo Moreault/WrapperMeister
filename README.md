@@ -43,3 +43,20 @@ var wrapper = new MyWrapper(new MyType());
 
 wrapper.MyProperty = 42;
 ```
+
+# IDisposable
+If the wrapped object implements `IDisposable`, the wrapper _should_ also implement `IDisposable` and dispose the wrapped object when it is called but this mecahnism isn't built-in with `Wrapper<T>` so you have to do it yourself.
+
+```cs
+public class MyWrapper : Wrapper<MyType>,  IDisposable
+{
+	public MyWrapper(MyType wrappedObject) : base(wrappedObject)
+	{
+	}
+
+	public void Dispose()
+	{
+		Unwrapped.Dispose();
+	}
+}
+```
