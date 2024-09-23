@@ -3,17 +3,17 @@
 [TestClass]
 public sealed class WrapperTests : Tester
 {
-    public sealed class Dummy
+    public sealed class Garbage
     {
         public string? Name { get; set; }
 
-        public override string ToString() => $"Dummy {Name}";
+        public override string ToString() => $"Garbage {Name}";
 
         // ReSharper disable once NonReadonlyMemberInGetHashCode : For testing purposes
         public override int GetHashCode() => Name?.GetHashCode() ?? 0;
     }
 
-    public sealed class DummyWrapper(Dummy unwrapped) : Wrapper<Dummy>(unwrapped)
+    public sealed class GarbageWrapper(Garbage unwrapped) : Wrapper<Garbage>(unwrapped)
     {
         public string? Name
         {
@@ -28,7 +28,7 @@ public sealed class WrapperTests : Tester
         //Arrange
 
         //Act
-        var action = () => new DummyWrapper(null!);
+        var action = () => new GarbageWrapper(null!);
 
         //Assert
         action.Should().Throw<ArgumentNullException>().WithParameterName("unwrapped");
@@ -38,10 +38,10 @@ public sealed class WrapperTests : Tester
     public void Constructor_WhenUnwrappedIsNotNull_DoNotThrow()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
+        var unwrapped = Dummy.Create<Garbage>();
 
         //Act
-        var action = () => new DummyWrapper(unwrapped);
+        var action = () => new GarbageWrapper(unwrapped);
 
         //Assert
         action.Should().NotThrow();
@@ -51,8 +51,8 @@ public sealed class WrapperTests : Tester
     public void Unwrapped_Always_ReturnsWrappedObject()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper.Unwrapped;
@@ -65,8 +65,8 @@ public sealed class WrapperTests : Tester
     public void Equals_WhenComparingWithSameUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper.Equals(unwrapped);
@@ -79,9 +79,9 @@ public sealed class WrapperTests : Tester
     public void Equals_WhenComparingWithDifferentUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherUnwrapped = Fixture.Create<Dummy>();
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherUnwrapped = Dummy.Create<Garbage>();
 
         //Act
         var result = wrapper.Equals(otherUnwrapped);
@@ -94,9 +94,9 @@ public sealed class WrapperTests : Tester
     public void Equals_WhenComparingWithOtherWrapperWithSameUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherWrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherWrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper.Equals(otherWrapper);
@@ -109,9 +109,9 @@ public sealed class WrapperTests : Tester
     public void Equals_WhenComparingWithOtherWrapperWithDifferentUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherWrapper = new DummyWrapper(Fixture.Create<Dummy>());
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherWrapper = new GarbageWrapper(Dummy.Create<Garbage>());
 
         //Act
         var result = wrapper.Equals(otherWrapper);
@@ -124,8 +124,8 @@ public sealed class WrapperTests : Tester
     public void EqualsObject_WhenComparingWithSameUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
         // ReSharper disable once SuspiciousTypeConversion.Global : For testing purposes
@@ -139,9 +139,9 @@ public sealed class WrapperTests : Tester
     public void EqualsObject_WhenComparingWithDifferentUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        object otherUnwrapped = Fixture.Create<Dummy>();
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        object otherUnwrapped = Dummy.Create<Garbage>();
 
         //Act
         var result = wrapper.Equals(otherUnwrapped);
@@ -154,9 +154,9 @@ public sealed class WrapperTests : Tester
     public void EqualsObject_WhenComparingWithOtherWrapperWithSameUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        object otherWrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        object otherWrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper.Equals(otherWrapper);
@@ -169,9 +169,9 @@ public sealed class WrapperTests : Tester
     public void EqualsObject_WhenComparingWithOtherWrapperWithDifferentUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        object otherWrapper = new DummyWrapper(Fixture.Create<Dummy>());
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        object otherWrapper = new GarbageWrapper(Dummy.Create<Garbage>());
 
         //Act
         var result = wrapper.Equals(otherWrapper);
@@ -184,8 +184,8 @@ public sealed class WrapperTests : Tester
     public void EqualityOperator_WhenComparingWithSameUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper == unwrapped;
@@ -198,9 +198,9 @@ public sealed class WrapperTests : Tester
     public void EqualityOperator_WhenComparingWithDifferentUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherUnwrapped = Fixture.Create<Dummy>();
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherUnwrapped = Dummy.Create<Garbage>();
 
         //Act
         var result = wrapper == otherUnwrapped;
@@ -213,9 +213,9 @@ public sealed class WrapperTests : Tester
     public void EqualityOperator_WhenComparingWithOtherWrapperWithSameUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherWrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherWrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper == otherWrapper;
@@ -228,9 +228,9 @@ public sealed class WrapperTests : Tester
     public void EqualityOperator_WhenComparingWithOtherWrapperWithDifferentUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherWrapper = new DummyWrapper(Fixture.Create<Dummy>());
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherWrapper = new GarbageWrapper(Dummy.Create<Garbage>());
 
         //Act
         var result = wrapper == otherWrapper;
@@ -243,8 +243,8 @@ public sealed class WrapperTests : Tester
     public void InequalityOperator_WhenComparingWithSameUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper != unwrapped;
@@ -257,9 +257,9 @@ public sealed class WrapperTests : Tester
     public void InequalityOperator_WhenComparingWithDifferentUnwrappedObject_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherUnwrapped = Fixture.Create<Dummy>();
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherUnwrapped = Dummy.Create<Garbage>();
 
         //Act
         var result = wrapper != otherUnwrapped;
@@ -272,9 +272,9 @@ public sealed class WrapperTests : Tester
     public void InequalityOperator_WhenComparingWithOtherWrapperWithSameUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherWrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherWrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper != otherWrapper;
@@ -287,9 +287,9 @@ public sealed class WrapperTests : Tester
     public void InequalityOperator_WhenComparingWithOtherWrapperWithDifferentUnwrappedReference_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
-        var otherWrapper = new DummyWrapper(Fixture.Create<Dummy>());
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+        var otherWrapper = new GarbageWrapper(Dummy.Create<Garbage>());
 
         //Act
         var result = wrapper != otherWrapper;
@@ -302,8 +302,8 @@ public sealed class WrapperTests : Tester
     public void GetHashCode_Always_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper.GetHashCode();
@@ -316,8 +316,8 @@ public sealed class WrapperTests : Tester
     public void ToString_Always_UsesWrappedObjectMethod()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
         var result = wrapper.ToString();
@@ -330,11 +330,11 @@ public sealed class WrapperTests : Tester
     public void ExplicitCastingOperator_Always_UnwrapsObject()
     {
         //Arrange
-        var unwrapped = Fixture.Create<Dummy>();
-        var wrapper = new DummyWrapper(unwrapped);
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
 
         //Act
-        var result = (Dummy)wrapper;
+        var result = (Garbage)wrapper;
 
         //Assert
         result.Should().BeSameAs(unwrapped);
