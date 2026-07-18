@@ -299,6 +299,144 @@ public sealed class WrapperTests : Tester
     }
 
     [TestMethod]
+    public void Equals_WhenOtherWrapperIsNull_ReturnsFalse()
+    {
+        //Arrange
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+
+        //Act
+        var result = wrapper.Equals((IWrapper<Garbage>?)null);
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void EqualsObject_WhenComparingWithUnrelatedType_ReturnsFalse()
+    {
+        //Arrange
+        var unwrapped = Dummy.Create<Garbage>();
+        var wrapper = new GarbageWrapper(unwrapped);
+
+        //Act
+        var result = wrapper.Equals("some string");
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void EqualityOperator_WhenBothWrappersAreNull_ReturnsTrue()
+    {
+        //Arrange
+        GarbageWrapper? left = null;
+        GarbageWrapper? right = null;
+
+        //Act
+        var result = left == right;
+
+        //Assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void EqualityOperator_WhenLeftWrapperIsNull_ReturnsFalse()
+    {
+        //Arrange
+        GarbageWrapper? left = null;
+        var right = new GarbageWrapper(Dummy.Create<Garbage>());
+
+        //Act
+        var result = left == right;
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void EqualityOperator_WhenRightWrapperIsNull_ReturnsFalse()
+    {
+        //Arrange
+        var left = new GarbageWrapper(Dummy.Create<Garbage>());
+        GarbageWrapper? right = null;
+
+        //Act
+        var result = left == right;
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void EqualityOperator_WhenComparingWithNullUnwrappedObject_ReturnsFalse()
+    {
+        //Arrange
+        var wrapper = new GarbageWrapper(Dummy.Create<Garbage>());
+
+        //Act
+        var result = wrapper == (Garbage?)null;
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void EqualityOperator_WhenNullWrapperComparedWithNullUnwrappedObject_ReturnsTrue()
+    {
+        //Arrange
+        GarbageWrapper? wrapper = null;
+
+        //Act
+        var result = wrapper == (Garbage?)null;
+
+        //Assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void InequalityOperator_WhenBothWrappersAreNull_ReturnsFalse()
+    {
+        //Arrange
+        GarbageWrapper? left = null;
+        GarbageWrapper? right = null;
+
+        //Act
+        var result = left != right;
+
+        //Assert
+        result.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public void InequalityOperator_WhenLeftWrapperIsNull_ReturnsTrue()
+    {
+        //Arrange
+        GarbageWrapper? left = null;
+        var right = new GarbageWrapper(Dummy.Create<Garbage>());
+
+        //Act
+        var result = left != right;
+
+        //Assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void InequalityOperator_WhenRightWrapperIsNull_ReturnsTrue()
+    {
+        //Arrange
+        var left = new GarbageWrapper(Dummy.Create<Garbage>());
+        GarbageWrapper? right = null;
+
+        //Act
+        var result = left != right;
+
+        //Assert
+        result.Should().BeTrue();
+    }
+
+    [TestMethod]
     public void GetHashCode_Always_UsesWrappedObjectMethod()
     {
         //Arrange

@@ -24,7 +24,7 @@ If you need a working real-world example, `Wrapper<T>` is used extensively in th
 First, create a class that inherits from `Wrapper<T>` and implements `IWrapper<T>`.
 
 ```cs
-public class MyWrapper : Wrapper<MyType>
+public class MyWrapper(MyType wrappedObject) : Wrapper<MyType>(wrappedObject)
 {
 	public int MyProperty
 	{
@@ -33,10 +33,6 @@ public class MyWrapper : Wrapper<MyType>
 	}
 
 	//TODO : Map other properties and methods to the wrapped object
-
-	public MyWrapper(MyType wrappedObject) : base(wrappedObject)
-	{
-	}
 }
 ```
 
@@ -49,7 +45,7 @@ wrapper.MyProperty = 42;
 ```
 
 # IDisposable
-If the wrapped object implements `IDisposable`, the wrapper _should_ also implement `IDisposable` and dispose the wrapped object when it is called but this mecahnism isn't built-in with `Wrapper<T>` so you have to do it yourself.
+If the wrapped object implements `IDisposable`, the wrapper _should_ also implement `IDisposable` and dispose the wrapped object when it is called but this mechanism isn't built-in with `Wrapper<T>` so you have to do it yourself.
 
 ```cs
 public class MyWrapper : Wrapper<MyType>,  IDisposable

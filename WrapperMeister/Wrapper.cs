@@ -1,6 +1,6 @@
 ﻿namespace ToolBX.WrapperMeister;
 
-public interface IWrapper<T> : IEquatable<T>
+public interface IWrapper<T> : IEquatable<T>, IEquatable<IWrapper<T>>
 {
     T Unwrapped { get; }
 }
